@@ -11,6 +11,15 @@ class Artist
     @name = options["name"]
   end
 
+  def album()
+  sql = "SELECT * FROM albums
+  WHERE artist_id = $1"
+  values = [@id]
+  results = SqlRunner.run( sql, values )
+  orders = results.map { |album| Album.new(album) }
+  return orders
+end
+
  def save()
    sql = "INSERT INTO artists
    (name)
