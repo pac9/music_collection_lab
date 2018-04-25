@@ -33,6 +33,23 @@ end
    @id = id_string.to_i
  end
 
+ def update()
+   sql = "UPDATE artists
+   SET
+   (name) =
+   ($1)
+   WHERE id = $2"
+   values = [@name, @id]
+   SqlRunner.run(sql, values)
+ end
+
+ def delete()
+     sql = "DELETE FROM artists
+     WHERE id = $1"
+     values = [@id]
+     SqlRunner.run(sql, values)
+   end
+
  def self.all()
    sql = "SELECT * FROM artists"
    artist_hashes = SqlRunner.run(sql)
@@ -48,4 +65,9 @@ end
    artist = Album.new(artist_hash)
    return artist
  end
+
+ def self.delete_all()
+    sql = "DELETE FROM artists"
+    SqlRunner.run(sql)
+  end
 end
